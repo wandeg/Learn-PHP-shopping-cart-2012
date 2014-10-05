@@ -20,6 +20,7 @@ function do_html_header($title = '')
     </style>
   </head>
   <body>
+  <?php do_html_url('register_form.php','Register') ?>
   <table width='100%' border=0 cellspacing = 0 bgcolor='#cccccc'>
   <tr>
   <td rowspan = 2>
@@ -359,7 +360,39 @@ function display_cart($cart, $change = true, $images = 1)
   echo '</form></table>';
 }
 
-function display_login_form()
+function display_registration_form()
+{
+?>
+ <form method='post' action='register_new.php'>
+ <table bgcolor='#cccccc'>
+   <tr>
+     <td>Email address:</td>
+     <td><input type='text' name='email' size=30 maxlength=100></td></tr>
+   <tr>
+     <td>Preferred username <br />(max 16 chars):</td>
+     <td valign='top'><input type='text' name='username'
+                     size=16 maxlength=16></td></tr>
+   <tr>
+     <td>Password <br />(between 6 and 16 chars):</td>
+     <td valign='top'><input type='password' name='passwd'
+                     size=16 maxlength=16></td></tr>
+   <tr>
+     <td>Confirm password:</td>
+     <td><input type='password' name='passwd2' size=16 maxlength=16></td></tr>
+   <tr>
+   <tr>
+     <td>Phone Number:</td>
+     <td><input type='text' name='phone' size=16 maxlength=16></td></tr>
+   <tr>
+     <td colspan=2 align='center'>
+     <input type="hidden" name="level" value="2">
+     <input type='submit' value='Register'></td></tr>
+ </table></form>
+<?php 
+
+}
+
+function display_admin_login_form()
 {
   // dispaly form asking for name and password
 ?>
@@ -379,6 +412,30 @@ function display_login_form()
 <?php
 }
 
+function display_user_login_form()
+{
+?>
+  <a href='register_form.php'>Not a member?</a>
+  <form method='post' action='member.php'>
+  <table bgcolor='#cccccc'>
+   <tr>
+     <td colspan=2>Members log in here:</td>
+   <tr>
+     <td>Username:</td>
+     <td><input type='text' name='username'></td></tr>
+   <tr>
+     <td>Password:</td>
+     <td><input type='password' name='passwd'></td></tr>
+   <tr>
+     <td colspan=2 align='center'>
+     <input type='submit' value='Log in'></td></tr>
+   <tr>
+     <td colspan=2><a href='forgot_form.php'>Forgot your password?</a></td>
+   </tr>
+ </table></form>
+<?php
+
+}
 function display_admin_menu()
 {
 ?>

@@ -12,7 +12,7 @@ if (isset($_POST['username']) && isset($_POST['passwd']))
     $username = $_POST['username'];
     $passwd = $_POST['passwd'];
 
-    if (login($username, $passwd))
+    if (login_admin($username, $passwd))
     {
       // if they are in the database register the user id
       $_SESSION['admin_user'] = $username;
