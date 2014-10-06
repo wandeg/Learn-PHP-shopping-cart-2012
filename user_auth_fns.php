@@ -65,9 +65,9 @@ function login_admin($username, $password)
     return 0;
 
   // check if username is unique
-  $result = $conn->query("select * from admin 
+  $result = $conn->query("select * from user 
                          where username='$username'
-                         and password =sha1('$password')");
+                         and password =sha1('$password') and level=4");
   if (!$result)
      return 0;
   

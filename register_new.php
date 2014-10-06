@@ -9,6 +9,11 @@
   $passwd2=$_POST['passwd2'];
   $phone=$_POST['phone'];
   $level=$_POST['level'];
+  $address=$_POST['address'];
+  $city=$_POST['city'];
+  $state=$_POST['state'];
+  $zip=$_POST['zip'];
+  $country=$_POST['country'];
   // start session which may be needed later
   // start it now because it must go before headers
   session_start();
@@ -46,7 +51,7 @@
    
     // attempt to register
     // this function can also throw an exception
-    register($username, $email, $passwd,$phone,$level);
+    register($username, $email, $passwd,$phone,$level,$address,$city,$state,$zip,$country);
     // register session variable 
     $_SESSION['valid_user'] = $username;
     

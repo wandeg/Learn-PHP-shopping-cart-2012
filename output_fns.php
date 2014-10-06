@@ -11,17 +11,12 @@ function do_html_header($title = '')
   <html>
   <head>
     <title><?php echo $title; ?></title>
-    <style>
-      h2 { font-family: Arial, Helvetica, sans-serif; font-size: 22px; color = red; margin = 6px }
-      body { font-family: Arial, Helvetica, sans-serif; font-size: 13px }
-      li, td { font-family: Arial, Helvetica, sans-serif; font-size: 13px }
-      hr { color: #FF0000; width=70%; text-align=center}
-      a { color: #000000 }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
   </head>
   <body>
   <?php do_html_url('register_form.php','Register') ?>
-  <table width='100%' border=0 cellspacing = 0 bgcolor='#cccccc'>
+  <table class="table" width='100%' border=0 cellspacing = 0 bgcolor='#cccccc'>
   <tr>
   <td rowspan = 2>
   <a href = 'index.php'><img src='images/Book-O-Rama.gif' alt='Bookorama' border=0
@@ -111,7 +106,7 @@ function display_books($book_array)
   else
   {
     //create table
-    echo '<table width = \"100%\" border = 0>';
+    echo '<table class="table" width = \"100%\" border = 0>';
     
     //create a table row for each book    
     foreach ($book_array as $row)
@@ -142,7 +137,7 @@ function display_book_details($book)
   // display all details about this book
   if (is_array($book))
   {
-    echo '<table><tr>'; 
+    echo '<table class="table"><tr>'; 
     //display the picture if there is one 
     if (@file_exists('images/'.($book['isbn']).'.jpg'))
     {
@@ -171,7 +166,7 @@ function display_checkout_form()
   //display the form that asks for name and address
 ?>
   <br />
-  <table border = 0 width = '100%' cellspacing = 0>
+  <table class="table" border = 0 width = '100%' cellspacing = 0>
   <form action = 'purchase.php' method = 'post'>
   <tr><th colspan = 2 bgcolor='#cccccc'>Your Details</th></tr>
   <tr>
@@ -239,7 +234,7 @@ function display_shipping($shipping)
 {
   // display table row with shipping cost and total price including shipping
 ?>
-  <table border = 0 width = '100%' cellspacing = 0>
+  <table class="table" border = 0 width = '100%' cellspacing = 0>
   <tr><td align = 'left'>Shipping</td>
       <td align = 'right'> <?php echo number_format($shipping, 2); ?></td></tr>
   <tr><th bgcolor='#cccccc' align = 'left'>TOTAL INCLUDING SHIPPING</th>
@@ -253,7 +248,7 @@ function display_card_form($name)
 {
   //display form asking for credit card details
 ?>
-  <table border = 0 width = '100%' cellspacing = 0>
+  <table class="table" border = 0 width = '100%' cellspacing = 0>
   <form action = 'process.php' method = 'post'>
   <tr><th colspan = 2 bgcolor="#cccccc">Credit Card Details</th></tr>
   <tr>
@@ -296,7 +291,7 @@ function display_cart($cart, $change = true, $images = 1)
   // optionally allow changes (true or false)
   // optionally include images (1 - yes, 0 - no)
 
-   echo '<table border = 0 width = "100%" cellspacing = 0>
+   echo '<table class="table" border = 0 width = "100%" cellspacing = 0>
         <form action = "show_cart.php" method = "post">
         <tr><th colspan = '. (1+$images) .' bgcolor="#cccccc">Item</th>
         <th bgcolor="#cccccc">Price</th><th bgcolor="#cccccc">Quantity</th>
@@ -364,7 +359,7 @@ function display_registration_form()
 {
 ?>
  <form method='post' action='register_new.php'>
- <table bgcolor='#cccccc'>
+ <table class="table" bgcolor='#cccccc'>
    <tr>
      <td>Email address:</td>
      <td><input type='text' name='email' size=30 maxlength=100></td></tr>
@@ -397,7 +392,7 @@ function display_admin_login_form()
   // dispaly form asking for name and password
 ?>
   <form method='post' action="admin.php">
- <table bgcolor='#cccccc'>
+ <table class="table" bgcolor='#cccccc'>
    <tr>
      <td>Username:</td>
      <td><input type='text' name='username'></td></tr>
@@ -417,7 +412,7 @@ function display_user_login_form()
 ?>
   <a href='register_form.php'>Not a member?</a>
   <form method='post' action='member.php'>
-  <table bgcolor='#cccccc'>
+  <table class="table" bgcolor='#cccccc'>
    <tr>
      <td colspan=2>Members log in here:</td>
    <tr>
@@ -440,10 +435,13 @@ function display_admin_menu()
 {
 ?>
 <br />
+<div id="admin_menu">
 <a href="index.php">Go to main site</a><br />
 <a href="insert_category_form.php">Add a new category</a><br />
-<a href="insert_book_form.php">Add a new book</a><br />
+<a href="insert_product_form.php">Add a new product</a><br />
 <a href="change_password_form.php">Change admin password</a><br />
+</div>
+
 <?php
 
 }

@@ -4,15 +4,11 @@
 require_once('book_sc_fns.php'); 
 session_start();
 
-do_html_header('Edit book details');
+do_html_header('Add a book');
 if (check_admin_user())
 {
-  if ($book = get_book_details($_GET['isbn']))
-  {
-    insert_or_edit_product($book);
-  }
-  else
-    echo 'Could not retrieve book details.<br />';
+   insert_or_edit_product();
+	// display_book_form();
   do_html_url('admin.php', 'Back to administration menu');
 }
 else
