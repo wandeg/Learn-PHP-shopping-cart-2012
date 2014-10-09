@@ -16,10 +16,10 @@ function do_html_header($title = '')
   </head>
   <body>
   <?php do_html_url('register_form.php','Register') ?>
-  <table class="table" width='100%' border=0 cellspacing = 0 bgcolor='#cccccc'>
+  <table class="table table-bordered table-hover" width='100%' border=0 cellspacing = 0 bgcolor='#cccccc'>
   <tr>
   <td rowspan = 2>
-  <a href = 'index.php'><img src='images/Book-O-Rama.gif' alt='Bookorama' border=0
+  <a href = 'index.php'><img src='images/Book-O-Rama.gif' alt='bookorama' border=0
        align='left' valign='bottom' height = 55 width = 325></a>
   </td>
   <td align = 'right' valign = 'bottom'>
@@ -68,11 +68,11 @@ function do_html_heading($heading)
 <?php
 }
 
-function do_html_URL($url, $name)
+function do_html_URL($url, $title)
 {
   // output URL as link and br
 ?>
-  <a href="<?php echo $url; ?>"><?php echo $name; ?></a><br />
+  <a href="<?php echo $url; ?>"><?php echo $title; ?></a><br />
 <?php
 }
 
@@ -83,7 +83,7 @@ function display_categories($cat_array)
      echo 'No categories currently available<br />';
      return;
   }
-  echo '<ul>';
+  echo '<ul id="cat_list">';
   foreach ($cat_array as $row)
   {
     $url = 'show_cat.php?catid='.($row['catid']);
@@ -96,26 +96,26 @@ function display_categories($cat_array)
   echo '<hr />';
 }
 
-function display_books($book_array)
+function display_products($product_array)
 {
-  //display all books in the array passed in
-  if (!is_array($book_array))
+  //display all products in the array passed in
+  if (!is_array($product_array))
   {
-     echo '<br />No books currently available in this category<br />';
+     echo '<br />No products currently available in this category<br />';
   }
   else
   {
     //create table
-    echo '<table class="table" width = \"100%\" border = 0>';
+    echo '<table class="table table-bordered table-hover" width = \"100%\" border = 0>';
     
-    //create a table row for each book    
-    foreach ($book_array as $row)
+    //create a table row for each product    
+    foreach ($product_array as $row)
     {
-      $url = 'show_book.php?isbn='.($row['isbn']);
+      $url = 'show_product.php?id='.($row['id']);
       echo '<tr><td>';
-      if (@file_exists('images/'.$row['isbn'].'.jpg'))
+      if (@file_exists('images/'.$row['id'].'.jpg'))
       {
-        $title = '<img src=\'images/'.($row['isbn']).'.jpg\' border=0 />';
+        $title = '<img src=\'images/'.($row['id']).'.jpg\' border=0 />';
         do_html_url($url, $title);
       }
       else
@@ -123,7 +123,7 @@ function display_books($book_array)
         echo '&nbsp;';
       }
       echo '</td><td>';
-      $title =  $row['title'].' by '.$row['author'];
+      $title =  $row['name'].' by '.$row['vendor'];
       do_html_url($url, $title);
       echo '</td></tr>';
     }
@@ -132,32 +132,32 @@ function display_books($book_array)
   echo '<hr />';
 }
 
-function display_book_details($book)
+function display_product_details($product)
 {
-  // display all details about this book
-  if (is_array($book))
+  // display all details about this product
+  if (is_array($product))
   {
-    echo '<table class="table"><tr>'; 
+    echo '<table class="table table-bordered table-hover"><tr>'; 
     //display the picture if there is one 
-    if (@file_exists('images/'.($book['isbn']).'.jpg'))
+    if (@file_exists('images/'.($product['id']).'.jpg'))
     {
-      $size = GetImageSize('images/'.$book['isbn'].'.jpg');
+      $size = GetImageSize('images/'.$product['id'].'.jpg');
       if($size[0]>0 && $size[1]>0)
-        echo '<td><img src=\'images/'.$book['isbn'].'.jpg\' border=0 '.$size[3].'></td>';
+        echo '<td><img src=\'images/'.$product['id'].'.jpg\' border=0 '.$size[3].'></td>';
     }
     echo '<td><ul>';
-    echo '<li><b>Author:</b> ';
-    echo $book['author'];
-    echo '</li><li><b>ISBN:</b> ';
-    echo $book['isbn'];
+    echo '<li><b>Vendor:</b> ';
+    echo $product['vendor'];
+    echo '</li><li><b>id:</b> ';
+    echo $product['id'];
     echo '</li><li><b>Our Price:</b> ';
-    echo number_format($book['price'], 2);
+    echo number_format($product['price'], 2);
     echo '</li><li><b>Description:</b> ';
-    echo $book['description'];
+    echo $product['description'];
     echo '</li></ul></td></tr></table>'; 
   }
   else
-    echo 'The details of this book cannot be displayed at this time.';
+    echo 'The details of this product cannot be displayed at this time.';
   echo '<hr />';
 }
 
@@ -166,7 +166,7 @@ function display_checkout_form()
   //display the form that asks for name and address
 ?>
   <br />
-  <table class="table" border = 0 width = '100%' cellspacing = 0>
+  <table class="table table-bordered table-hover" border = 0 width = '100%' cellspacing = 0>
   <form action = 'purchase.php' method = 'post'>
   <tr><th colspan = 2 bgcolor='#cccccc'>Your Details</th></tr>
   <tr>
@@ -234,7 +234,7 @@ function display_shipping($shipping)
 {
   // display table row with shipping cost and total price including shipping
 ?>
-  <table class="table" border = 0 width = '100%' cellspacing = 0>
+  <table class="table table-bordered table-hover" border = 0 width = '100%' cellspacing = 0>
   <tr><td align = 'left'>Shipping</td>
       <td align = 'right'> <?php echo number_format($shipping, 2); ?></td></tr>
   <tr><th bgcolor='#cccccc' align = 'left'>TOTAL INCLUDING SHIPPING</th>
@@ -248,7 +248,7 @@ function display_card_form($name)
 {
   //display form asking for credit card details
 ?>
-  <table class="table" border = 0 width = '100%' cellspacing = 0>
+  <table class="table table-bordered table-hover" border = 0 width = '100%' cellspacing = 0>
   <form action = 'process.php' method = 'post'>
   <tr><th colspan = 2 bgcolor="#cccccc">Credit Card Details</th></tr>
   <tr>
@@ -291,26 +291,26 @@ function display_cart($cart, $change = true, $images = 1)
   // optionally allow changes (true or false)
   // optionally include images (1 - yes, 0 - no)
 
-   echo '<table class="table" border = 0 width = "100%" cellspacing = 0>
+   echo '<table class="table table-bordered table-hover" border = 0 width = "100%" cellspacing = 0>
         <form action = "show_cart.php" method = "post">
         <tr><th colspan = '. (1+$images) .' bgcolor="#cccccc">Item</th>
         <th bgcolor="#cccccc">Price</th><th bgcolor="#cccccc">Quantity</th>
         <th bgcolor="#cccccc">Total</th></tr>';
 
   //display each item as a table row
-  foreach ($cart as $isbn => $qty)
+  foreach ($cart as $id => $qty)
   {
-    $book = get_book_details($isbn);
+    $product = get_product_details($id);
     echo '<tr>';
     if($images ==true)
     {
       echo '<td align = left>';
-      if (file_exists("images/$isbn.jpg"))
+      if (file_exists("images/$id.jpg"))
       {
-         $size = GetImageSize('images/'.$isbn.'.jpg');  
+         $size = GetImageSize('images/'.$id.'.jpg');  
          if($size[0]>0 && $size[1]>0)
          {
-           echo '<img src="images/'.$isbn.'.jpg" border=0 ';
+           echo '<img src="images/'.$id.'.jpg" border=0 ';
            echo 'width = '. $size[0]/3 .' height = ' .$size[1]/3 . ' />';
          }
       }
@@ -319,15 +319,15 @@ function display_cart($cart, $change = true, $images = 1)
       echo '</td>';
     }
     echo '<td align = "left">';
-    echo '<a href = "show_book.php?isbn='.$isbn.'">'.$book['title'].'</a> by '.$book['author'];
-    echo '</td><td align = "center">$'.number_format($book['price'], 2);
+    echo '<a href = "show_product.php?id='.$id.'">'.$product['name'].'</a> by '.$product['vendor'];
+    echo '</td><td align = "center">$'.number_format($product['price'], 2);
     echo '</td><td align = "center">';
     // if we allow changes, quantities are in text boxes
     if ($change == true)
-      echo "<input type = 'text' name = \"$isbn\" value = \"$qty\" size = 3>";
+      echo "<input type = 'text' name = \"$id\" value = \"$qty\" size = 3>";
     else
       echo $qty;
-    echo '</td><td align = "center">$'.number_format($book['price']*$qty,2)."</td></tr>\n";
+    echo '</td><td align = "center">$'.number_format($product['price']*$qty,2)."</td></tr>\n";
   }
   // display total row
   echo "<tr>
@@ -359,7 +359,7 @@ function display_registration_form()
 {
 ?>
  <form method='post' action='register_new.php'>
- <table class="table" bgcolor='#cccccc'>
+ <table class="table table-bordered table-hover" bgcolor='#cccccc'>
    <tr>
      <td>Email address:</td>
      <td><input type='text' name='email' size=30 maxlength=100></td></tr>
@@ -392,7 +392,7 @@ function display_admin_login_form()
   // dispaly form asking for name and password
 ?>
   <form method='post' action="admin.php">
- <table class="table" bgcolor='#cccccc'>
+ <table class="table table-bordered table-hover" bgcolor='#cccccc'>
    <tr>
      <td>Username:</td>
      <td><input type='text' name='username'></td></tr>
@@ -412,7 +412,7 @@ function display_user_login_form()
 ?>
   <a href='register_form.php'>Not a member?</a>
   <form method='post' action='member.php'>
-  <table class="table" bgcolor='#cccccc'>
+  <table class="table table-bordered table-hover" bgcolor='#cccccc'>
    <tr>
      <td colspan=2>Members log in here:</td>
    <tr>

@@ -7,9 +7,9 @@ session_start();
 do_html_header('Edit category');
 if (check_admin_user())
 {
-  if ($catname = get_category_name($_GET['catid']))
+  if ($catname = get_category_name($_GET['cat_id']))
   {
-    $catid = $_GET['catid'];
+    $catid = $_GET['cat_id'];
     $cat = compact('catname', 'catid');
     display_category_form($cat);
   }

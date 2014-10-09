@@ -26,12 +26,12 @@
 
   if(isset($_POST['save']))
   {   
-    foreach ($_SESSION['cart'] as $isbn => $qty)
+    foreach ($_SESSION['cart'] as $id => $qty)
     {
-      if($_POST[$isbn]=='0')
-        unset($_SESSION['cart'][$isbn]);
+      if($_POST[$id]=='0')
+        unset($_SESSION['cart'][$id]);
       else 
-        $_SESSION['cart'][$isbn] = $_POST[$isbn];
+        $_SESSION['cart'][$id] = $_POST[$id];
     }
     $_SESSION['total_price'] = calculate_price($_SESSION['cart']);
     $_SESSION['items'] = calculate_items($_SESSION['cart']);

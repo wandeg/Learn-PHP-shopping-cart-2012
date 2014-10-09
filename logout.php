@@ -3,8 +3,16 @@
 // include function files for this application
 require_once('book_sc_fns.php'); 
 session_start();
-$old_user = $_SESSION['admin_user'];  // store  to test if they *were* logged in
-unset($_SESSION['admin_user']);
+
+if (isset($_SESSION['admin_user'])){
+	$old_user = $_SESSION['admin_user'];  // store  to test if they *were* logged in
+	unset($_SESSION['admin_user']);
+}
+else if (isset($_SESSION['valid_user'])){
+	$old_user = $_SESSION['valid_user'];  // store  to test if they *were* logged in
+	unset($_SESSION['valid_user']);
+}
+
 session_destroy();
 
 // start output html

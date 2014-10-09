@@ -27,7 +27,7 @@ function insert_order($order_details)
   $conn = db_connect();
  
   // insert customer address
-  $query = "select customerid from customers where  
+  $query = "select id from users where  
             name = '$name' and address = '$address' 
             and city = '$city' and state = '$state' 
             and zip = '$zip' and country = '$country'";
@@ -35,21 +35,21 @@ function insert_order($order_details)
   if($result->num_rows>0)
   {
     $customer = $result->fetch_object();
-    $customerid = $customer->customerid;
+    $id = $customer->id;
   }
   else
   {
-    $query = "insert into customers values
+    $query = "insert into users values
             ('', '$name','$address','$city','$state','$zip','$country')";
     $result = $conn->query($query);
     if (!$result)
        return false;
   }
-  $customerid = $conn->insert_id;
+  $id = $conn->insert_id;
 
   $date = date('Y-m-d');
   $query = "insert into orders values
-            ('', $customerid, ".$_SESSION['total_price'].", '$date', 'PARTIAL', '$ship_name',
+            ('', $id, ".$_SESSION['total_price'].", '$date', 'PARTIAL', '$ship_name',
              '$ship_address','$ship_city','$ship_state','$ship_zip',
               '$ship_country')";
 
@@ -58,7 +58,7 @@ function insert_order($order_details)
     return false;
 
   $query = "select orderid from orders where 
-               customerid = $customerid and 
+               id = $id and 
                amount > ".$_SESSION['total_price']."-.001 and
                amount < ".$_SESSION['total_price']."+.001 and
                date = '$date' and
@@ -79,14 +79,14 @@ function insert_order($order_details)
     return false; 
   
   // insert each book
-  foreach($_SESSION['cart'] as $isbn => $quantity)
+  foreach($_SESSION['cart'] as $id => $quantity)
   {
-    $detail = get_book_details($isbn);
+    $detail = get_book_details($id);
     $query = "delete from order_items where  
-              orderid = '$orderid' and isbn =  '$isbn'";
+              orderid = '$orderid' and id =  '$id'";
     $result = $conn->query($query);
     $query = "insert into order_items values
-              ('$orderid', '$isbn', ".$detail['price'].", $quantity)";
+              ('$orderid', '$id', ".$detail['price'].", $quantity)";
     $result = $conn->query($query);
     if(!$result)
       return false;

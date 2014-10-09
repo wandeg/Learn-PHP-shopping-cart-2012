@@ -4,24 +4,24 @@
 require_once('book_sc_fns.php'); 
 session_start();
 
-do_html_header('Updating book');
+do_html_header('Updating Product');
 if (check_admin_user())
 { 
   if (filled_out($_POST)) 
   {
-    $oldisbn = $_POST['oldisbn'];
-    $isbn = $_POST['isbn'];
-    $title = $_POST['title'];
-    $author = $_POST['author'];
-    $catid = $_POST['catid'];
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $cat_id = $_POST['cat_id'];
+    $vendor = $_POST['vendor'];
     $price = $_POST['price'];
+    $quantity = $_POST['quantity'];
     $description = $_POST['description'];
 
-    if(update_book($oldisbn, $isbn, $title, $author, $catid,
-                      $price, $description))
-      echo 'Book was updated.<br />';
+    if(update_product($id, $name, $cat_id, $vendor, $price,
+                      $quantity, $description))
+      echo 'Product was updated.<br />';
     else
-      echo 'Book could not be updated.<br />';
+      echo 'Product could not be updated.<br />';
   } 
   else 
     echo 'You have not filled out the form.  Please try again.';

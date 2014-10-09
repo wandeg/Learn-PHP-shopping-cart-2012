@@ -2,7 +2,7 @@
 
 require_once('db_fns.php');
 
-function register($username, $email, $password,$phone,$level)
+function register($username, $email, $passwd,$phone,$level,$address,$city,$state,$zip,$country)
 // register new person with db
 // return true or error message
 {
@@ -26,7 +26,7 @@ function register($username, $email, $password,$phone,$level)
   $nowtime = time();
   echo '$nowtime','$username', sha1('$password'), '$email','$phone','$level';
   $result = $conn->query("insert into user values 
-                         ('$nowtime','$username', sha1('$password'), '$email','$phone','$level')");
+                         ('$nowtime','$username', sha1('$password'), '$email','$phone','$level','$address','$city','$state','$zip','$country')");
   if (!$result)
     throw new Exception('Could not register you in database - please try again later.');
 

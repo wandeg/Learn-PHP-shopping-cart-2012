@@ -16,7 +16,7 @@ if (check_admin_user())
     $price = $_POST['price'];
     $quantity = $_POST['quantity'];
     $description = $_POST['description'];
-    echo "('$pid', '$title', '$catid','$vendor', $price,'$quantity','$description')";
+    // echo "('$pid', '$title', '$catid','$vendor', $price,'$quantity','$description')";
 
     if(insert_product($pid, $title, $catid,$vendor, $price, $quantity, $description))
       echo "Product '".stripslashes($title)."' was added to the database.<br />";

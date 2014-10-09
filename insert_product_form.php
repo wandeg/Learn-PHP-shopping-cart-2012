@@ -4,7 +4,7 @@
 require_once('book_sc_fns.php'); 
 session_start();
 
-do_html_header('Add a book');
+do_html_header('Add a Product');
 if (check_admin_user())
 {
    insert_or_edit_product();

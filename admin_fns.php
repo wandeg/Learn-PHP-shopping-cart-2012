@@ -306,21 +306,22 @@ function update_category($catid, $catname)
      return true; 
 }
 
-function update_book($oldisbn, $isbn, $title, $author, $catid, 
-                     $price, $description)
+
+function update_product($id,$name, $cat_id, $vendor, $price, 
+                     $quantity, $description)
 // change details of book stored under $oldisbn in
 // the database to new details in arguments
 {
    $conn = db_connect();
 
-   $query = "update books
-             set isbn='$isbn',
-             title ='$title',
-             author = '$author',
-             catid = '$catid',
+   $query = "update productss
+             set name='$name',
+             cat_id ='$cat_id',
+             vendor = '$vendor',
              price = '$price',
+             quantity = '$quantity',
              description = '$description'
-             where isbn='$oldisbn'";
+             where id='$id'";
 
    $result = @$conn->query($query);
    if (!$result)
@@ -328,6 +329,7 @@ function update_book($oldisbn, $isbn, $title, $author, $catid,
    else
      return true; 
 }
+
 
 function delete_category($catid)
 // Remove the category identified by catid from the db
@@ -339,8 +341,8 @@ function delete_category($catid)
    // check if there are any books in category 
    // to avoid deletion anomalies   
    $query = "select *
-             from books
-             where catid='$catid'";
+             from productss
+             where cat_id='$catid'";
    $result = @$conn->query($query);
    if (!$result || @$result->num_rows>0)
      return false;
@@ -355,13 +357,13 @@ function delete_category($catid)
 }
 
 
-function delete_book($isbn)
+function delete_product($id)
 // Deletes the book identified by $isbn from the database.
 {
    $conn = db_connect();
 
    $query = "delete from books
-             where isbn='$isbn'";
+             where id='$id'";
    $result = @$conn->query($query);
    if (!$result)
      return false;

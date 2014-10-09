@@ -8,13 +8,13 @@
  
   do_html_header($name);
 
-  // get the book info out from db
-  $book_array = get_books($catid);
+  // get the product info out from db
+  $product_array = get_products($catid);
 
-  display_books($book_array);
+  display_products($product_array);
  
 
-  // if logged in as admin, show add, delete book links
+  // if logged in as admin, show add, delete product links
   if(isset($_SESSION['admin_user']))
   {
     display_button('index.php', 'continue', 'Continue Shopping');
