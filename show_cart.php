@@ -1,5 +1,5 @@
 <?php
-  include ('book_sc_fns.php');
+  include ('product_sc_fns.php');
   // The shopping cart needs sessions, so start one
   session_start();
 
@@ -46,14 +46,14 @@
     echo '<p>There are no items in your cart</p>';
     echo '<hr />';
   }
-  $target = 'index.php';
+  $target = 'shop.php';
 
   // if we have just added an item to the cart, continue shopping in that category
   if($new)
   {
-    $details =  get_book_details($new);
-    if($details['catid'])    
-      $target = 'show_cat.php?catid='.$details['catid']; 
+    $details =  get_product_details($new);
+    if($details['cat_id'])    
+      $target = 'show_cat.php?cat_id='.$details['cat_id']; 
   }
   display_button($target, 'continue-shopping', 'Continue Shopping');  
 

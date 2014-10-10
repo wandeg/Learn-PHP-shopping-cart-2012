@@ -1,6 +1,6 @@
 <?php
   // include function files for this application
-  require_once('book_sc_fns.php');
+  require_once('product_sc_fns.php');
 
   //create short variable names
   $email=$_POST['email'];

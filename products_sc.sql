@@ -33,14 +33,14 @@ CREATE TABLE books
    isbn CHAR(13) NOT NULL PRIMARY KEY,
    author CHAR(80),
    title CHAR(100),
-   catid INT UNSIGNED,
+   cat_id INT UNSIGNED,
    price FLOAT(4,2) NOT NULL,
    description VARCHAR(255)
 );
 
 CREATE TABLE categories
 (
-  catid INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  cat_id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   catname CHAR(60) NOT NULL
 );
 

@@ -1,5 +1,5 @@
 <?php
-  include ('book_sc_fns.php');
+  include ('product_sc_fns.php');
   // The shopping cart needs sessions, so start one
   session_start();
 
@@ -24,7 +24,7 @@
       //empty shopping cart
       session_destroy();
       echo 'Thankyou for shopping with us.  Your order has been placed.';
-      display_button('index.php', 'continue-shopping', 'Continue Shopping');  
+      display_button('shop.php', 'continue-shopping', 'Continue Shopping');  
     }
     else
     {

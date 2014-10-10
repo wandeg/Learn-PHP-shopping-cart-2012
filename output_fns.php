@@ -15,11 +15,16 @@ function do_html_header($title = '')
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
   </head>
   <body>
-  <?php do_html_url('register_form.php','Register') ?>
+  <ul class="nav navbar-nav">  
+  <li><a class="navbar-brand" href = 'index.php'>Copy Cat Limited</a></li>
+  <li><?php do_html_url('register_form.php','Register') ?></li>
+  <li><?php do_html_url('login.php','Login') ?></li>
+  <li><?php do_html_url('shop.php','Shop') ?></li>
+  </ul>  
   <table class="table table-bordered table-hover" width='100%' border=0 cellspacing = 0 bgcolor='#cccccc'>
   <tr>
   <td rowspan = 2>
-  <a href = 'index.php'><img src='images/Book-O-Rama.gif' alt='bookorama' border=0
+  <a href = 'index.php'><img src='images/product-O-Rama.gif' alt='productorama' border=0
        align='left' valign='bottom' height = 55 width = 325></a>
   </td>
   <td align = 'right' valign = 'bottom'>
@@ -47,8 +52,7 @@ function do_html_header($title = '')
   </tr>
   </table>
 <?php
-  if($title)
-    do_html_heading($title);
+  
 }
 
 function do_html_footer()
@@ -86,7 +90,7 @@ function display_categories($cat_array)
   echo '<ul id="cat_list">';
   foreach ($cat_array as $row)
   {
-    $url = 'show_cat.php?catid='.($row['catid']);
+    $url = 'show_cat.php?cat_id='.($row['cat_id']);
     $title = $row['catname']; 
     echo '<li>';
     do_html_url($url, $title); 

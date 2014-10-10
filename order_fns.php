@@ -11,7 +11,9 @@ function process_card($card_details)
 function insert_order($order_details)
 {
   // extract order_details out as variables
-  extract($order_details);
+  echo extract($order_details);
+  // echo gettype($_SESSION['valid_user']);
+  // $nom=$_SESSION['valid_user'];
 
   // set shipping address same as address
   if(!$ship_name&&!$ship_address&&!$ship_city&&!$ship_state&&!$ship_zip&&!$ship_country)
@@ -23,52 +25,37 @@ function insert_order($order_details)
     $ship_zip = $zip;
     $ship_country = $country;
   }
-
+  echo $name;
   $conn = db_connect();
  
   // insert customer address
-  $query = "select id from users where  
-            name = '$name' and address = '$address' 
-            and city = '$city' and state = '$state' 
-            and zip = '$zip' and country = '$country'";
+  $query = "select id from user where  
+            username = ".$_SESSION['valid_user']."";
   $result = $conn->query($query);
   if($result->num_rows>0)
   {
     $customer = $result->fetch_object();
-    $id = $customer->id;
+    $cid = $customer->id;
+    // echo $cid;
   }
-  else
-  {
-    $query = "insert into users values
-            ('', '$name','$address','$city','$state','$zip','$country')";
-    $result = $conn->query($query);
-    if (!$result)
-       return false;
-  }
-  $id = $conn->insert_id;
+  
+  
 
   $date = date('Y-m-d');
   $query = "insert into orders values
-            ('', $id, ".$_SESSION['total_price'].", '$date', 'PARTIAL', '$ship_name',
+            ('', '$cid', ".$_SESSION['total_price'].", '$date', 'PARTIAL', '$ship_name',
              '$ship_address','$ship_city','$ship_state','$ship_zip',
               '$ship_country')";
 
   $result = $conn->query($query);
   if (!$result)
+
     return false;
+  $id = $conn->insert_id;
+  // echo $id;
 
   $query = "select orderid from orders where 
-               id = $id and 
-               amount > ".$_SESSION['total_price']."-.001 and
-               amount < ".$_SESSION['total_price']."+.001 and
-               date = '$date' and
-               order_status = 'PARTIAL' and
-               ship_name = '$ship_name' and
-               ship_address = '$ship_address' and
-               ship_city = '$ship_city' and
-               ship_state = '$ship_state' and
-               ship_zip = '$ship_zip' and
-               ship_country = '$ship_country'";
+               orderid = $id ";
   $result = $conn->query($query);
   if($result->num_rows>0)
   {
@@ -76,12 +63,14 @@ function insert_order($order_details)
     $orderid = $order->orderid;
   }
   else
+    // echo "string false";
     return false; 
   
-  // insert each book
+  // insert each product
   foreach($_SESSION['cart'] as $id => $quantity)
   {
-    $detail = get_book_details($id);
+    echo $id;
+    $detail = get_product_details($id);
     $query = "delete from order_items where  
               orderid = '$orderid' and id =  '$id'";
     $result = $conn->query($query);

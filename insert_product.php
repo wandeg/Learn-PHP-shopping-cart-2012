@@ -1,7 +1,7 @@
 <?php
 
 // include function files for this application
-require_once('book_sc_fns.php'); 
+require_once('product_sc_fns.php'); 
 session_start();
 
 do_html_header('Adding a Product');
@@ -11,14 +11,14 @@ if (check_admin_user())
   {
     $pid = $_POST['pid'];
     $title = $_POST['title'];
-    $catid = $_POST['catid'];
+    $cat_id = $_POST['cat_id'];
     $vendor = $_POST['vendor'];
     $price = $_POST['price'];
     $quantity = $_POST['quantity'];
     $description = $_POST['description'];
-    // echo "('$pid', '$title', '$catid','$vendor', $price,'$quantity','$description')";
+    // echo "('$pid', '$title', '$cat_id','$vendor', $price,'$quantity','$description')";
 
-    if(insert_product($pid, $title, $catid,$vendor, $price, $quantity, $description))
+    if(insert_product($pid, $title, $cat_id,$vendor, $price, $quantity, $description))
       echo "Product '".stripslashes($title)."' was added to the database.<br />";
     else
       echo "Product '".stripslashes($title).

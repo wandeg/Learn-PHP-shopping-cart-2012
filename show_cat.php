@@ -1,29 +1,28 @@
 <?php
-  include ('book_sc_fns.php');
+  include ('product_sc_fns.php');
   // The shopping cart needs sessions, so start one
   session_start();
 
-  $catid = $_GET['catid'];
-  $name = get_category_name($catid);
+  $cat_id = $_GET['cat_id'];
+  $name = get_category_name($cat_id);
  
   do_html_header($name);
 
   // get the product info out from db
-  $product_array = get_products($catid);
+  $product_array = get_products($cat_id);
 
   display_products($product_array);
  
-
+  display_button('shop.php', 'continue-shopping', 'Continue Shopping');
   // if logged in as admin, show add, delete product links
   if(isset($_SESSION['admin_user']))
   {
-    display_button('index.php', 'continue', 'Continue Shopping');
     display_button('admin.php', 'admin-menu', 'Admin Menu');
-    display_button("edit_category_form.php?catid=$catid", 
+    display_button("edit_category_form.php?cat_id=$cat_id", 
      'edit-category', 'Edit Category');
   }
   else
-    display_button('index.php', 'continue-shopping', 'Continue Shopping');
+   
   
   do_html_footer();
 ?>

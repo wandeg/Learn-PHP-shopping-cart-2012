@@ -10,7 +10,7 @@ function get_categories()
 {
    // query database for a list of categories
    $conn = db_connect();
-   $query = 'select catid, catname
+   $query = 'select cat_id, catname
              from categories'; 
    $result = @$conn->query($query);
    if (!$result)
@@ -22,13 +22,13 @@ function get_categories()
    return $result; 
 }
 
-function get_category_name($catid)
+function get_category_name($cat_id)
 {
    // query database for the name for a category id
    $conn = db_connect();
    $query = "select catname
              from categories 
-             where catid = $catid"; 
+             where cat_id = $cat_id"; 
    $result = @$conn->query($query);
    if (!$result)
      return false;
@@ -40,32 +40,32 @@ function get_category_name($catid)
 }
 
 
-function get_books($catid)
+function get_products($cat_id)
 {
-   // query database for the books in a category
-   if (!$catid || $catid=='')
+   // query database for the products in a category
+   if (!$cat_id || $cat_id=='')
      return false;
    
    $conn = db_connect();
-   $query = "select * from books where catid='$catid'";
+   $query = "select * from products where cat_id='$cat_id'";
    $result = @$conn->query($query);
    if (!$result)
      return false;
-   $num_books = @$result->num_rows;
-   if ($num_books ==0)
+   $num_products = @$result->num_rows;
+   if ($num_products ==0)
       return false;
    $result = db_result_to_array($result);
    return $result;
 }
 
-function get_book_details($isbn)
+function get_product_details($id)
 {
-  // query database for all details for a particular book
-  if (!$isbn || $isbn=='')
+  // query database for all details for a particular product
+  if (!$id || $id=='')
      return false;
 
    $conn = db_connect();
-   $query = "select * from books where isbn='$isbn'";
+   $query = "select * from products where id='$id'";
    $result = @$conn->query($query);
    if (!$result)
      return false;
@@ -80,9 +80,9 @@ function calculate_price($cart)
   if(is_array($cart))
   {
     $conn = db_connect();
-    foreach($cart as $isbn => $qty)
+    foreach($cart as $id => $qty)
     {  
-      $query = "select price from books where isbn='$isbn'";
+      $query = "select price from products where id='$id'";
       $result = $conn->query($query);
       if ($result)
       {
@@ -101,7 +101,7 @@ function calculate_items($cart)
   $items = 0;
   if(is_array($cart))
   {
-    foreach($cart as $isbn => $qty)
+    foreach($cart as $id => $qty)
     {  
       $items += $qty;
     }

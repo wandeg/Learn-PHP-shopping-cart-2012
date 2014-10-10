@@ -1,5 +1,5 @@
 <?php
-  include ('book_sc_fns.php');
+  include ('product_sc_fns.php');
   // The shopping cart needs sessions, so start one
   session_start();
 
@@ -12,9 +12,9 @@
 
   // set url for "continue button"
   $target = 'index.php';
-  if($product['catid'])
+  if($product['cat_id'])
   {
-    $target = 'show_cat.php?catid='.$product['catid'];
+    $target = 'show_cat.php?cat_id='.$product['cat_id'];
   }
   // if logged in as admin, show edit product links
   if( check_admin_user() )

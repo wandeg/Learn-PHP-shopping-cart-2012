@@ -1,15 +1,15 @@
 <?php
 
 // include function files for this application
-require_once('book_sc_fns.php'); 
+require_once('product_sc_fns.php'); 
 session_start();
 
 do_html_header('Deleting category');
 if (check_admin_user())
 {
-  if (isset($_POST['catid'])) 
+  if (isset($_POST['cat_id'])) 
   {
-    if(delete_category($_POST['catid']))
+    if(delete_category($_POST['cat_id']))
       echo 'Category was deleted.<br />';
     else
       echo 'Category could not be deleted.<br />'

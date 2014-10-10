@@ -1,7 +1,7 @@
 <?php
 session_start();
 // This file contains functions used by the admin interface 
-// for the Book-O-Rama shopping cart.
+// for the product-O-Rama shopping cart.
 
 function display_category_form($category = '')
 // This displays the category form.
@@ -22,11 +22,11 @@ function display_category_form($category = '')
 <form role="form" method='post' action="<?php echo $edit?'edit_category.php':'insert_category.php'; ?>">
   <div class="form-group">
     <label for="catname">Category</label>
-    <input type="email" name="catname" class="form-control" value="<?php echo $edit?$category['catname']:''; ?>" id="catname" >
+    <input type="text" name="catname" class="form-control" value="<?php echo $edit?$category['catname']:''; ?>" id="catname" >
   </div>
   <?php if ($edit) 
-         echo '<input type="hidden" name="catid" 
-                value="'.$category['catid'].'">';
+         echo '<input type="hidden" name="cat_id" 
+                value="'.$category['cat_id'].'">';
       ?>
     <button type="submit" class="btn btn-default"><?php echo $edit?'Update':'Add'; ?> Category</button>
 </form>
@@ -34,7 +34,7 @@ function display_category_form($category = '')
        // allow deletion of existing categories 
        {
           echo '<form method="post" action="delete_category.php">';
-          echo '<input type="hidden" name="catid" value="'.$category['catid'].'">';
+          echo '<input type="hidden" name="cat_id" value="'.$category['cat_id'].'">';
           echo '<button class="btn btn-default" type="submit">Delete category</button>';
           echo '</form>';
        }
@@ -45,15 +45,15 @@ function display_category_form($category = '')
 function insert_or_edit_product($product = '')
 // This displays the product form.
 // It is very similar to the category form.
-// This form can be used for inserting or editing books.
+// This form can be used for inserting or editing products.
 // To insert, don't pass any parameters.  This will set $edit
-// to false, and the form will go to insert_book.php.
-// To update, pass an array containing a book.  The
-// form will be displayed with the old data and point to update_book.php.
-// It will also add a "Delete book" button.
+// to false, and the form will go to insert_product.php.
+// To update, pass an array containing a product.  The
+// form will be displayed with the old data and point to update_product.php.
+// It will also add a "Delete product" button.
 {
   
-  // if passed an existing book, proceed in "edit mode"
+  // if passed an existing product, proceed in "edit mode"
   $edit = is_array($product);
 
   // most of the form is in plain HTML with some
@@ -61,23 +61,23 @@ function insert_or_edit_product($product = '')
 ?>
   <form role="form" method='post'action="<?php echo $edit?'edit_product.php':'insert_product.php';?>">
     <label for="pid">ID</label>
-    <input type='text' name="pid" value="<?php echo $edit?$product["pid"]:''; ?>" id="pid">
+    <input type='text' name="pid" value="<?php echo $edit?$product["id"]:''; ?>" id="pid">
     <label for="title">Name </label>
-    <input type='text' name="title" id="title" value="<?php echo $edit?$product["title"]:''; ?>">
+    <input type='text' name="title" id="title" value="<?php echo $edit?$product["name"]:''; ?>">
     <label for="vendor">Vendor</label>
     <input type='text' name='vendor' id="vendor" value="<?php echo $edit?$product['vendor']:''; ?>">
-    <label for="catid">Category</label>
-    <select name='catid' id="catid">
+    <label for="cat_id">Category</label>
+    <select name='cat_id' id="cat_id">
       <?php
         // list of possible categories comes from database
         $cat_array=get_categories();
         foreach ($cat_array as $thiscat)
         {
              echo '<option value="';
-             echo $thiscat['catid'];
+             echo $thiscat['cat_id'];
              echo '"';
-             // if existing book, put in current catgory
-             if ($edit && $thiscat['catid'] == $product['catid'])
+             // if existing product, put in current catgory
+             if ($edit && $thiscat['cat_id'] == $product['cat_id'])
                  echo ' selected';
              echo '>'; 
              echo $thiscat['catname'];
@@ -93,7 +93,7 @@ function insert_or_edit_product($product = '')
       </textarea>
       <?php 
         if ($edit)
-        // we need the old isbn to find book in database
+        // we need the old isbn to find product in database
         // if the isbn is being updated
         echo '<input type="hidden" name="oldisbn" 
         value="'.$product['isbn'].'">';
@@ -104,8 +104,8 @@ function insert_or_edit_product($product = '')
       if ($edit)
       {  
         echo '<form method="post" action="delete_product.php">';
-        echo '<input type="hidden" name="id" 
-        value="'.$product['id'].'">';
+        echo '<input type="hidden" name="pid" 
+        value="'.$product['pid'].'">';
         echo '<button type="submit">Delete Product</butto>';
         echo '</form>';
       }
@@ -117,54 +117,54 @@ function insert_or_edit_product($product = '')
 <?php
 }
 
-function display_book_form($book = '')
-// This displays the book form.
+function display_product_form($product = '')
+// This displays the product form.
 // It is very similar to the category form.
-// This form can be used for inserting or editing books.
+// This form can be used for inserting or editing products.
 // To insert, don't pass any parameters.  This will set $edit
-// to false, and the form will go to insert_book.php.
-// To update, pass an array containing a book.  The
-// form will be displayed with the old data and point to update_book.php.
-// It will also add a "Delete book" button.
+// to false, and the form will go to insert_product.php.
+// To update, pass an array containing a product.  The
+// form will be displayed with the old data and point to update_product.php.
+// It will also add a "Delete product" button.
 {
   
-  // if passed an existing book, proceed in "edit mode"
-  $edit = is_array($book);
+  // if passed an existing product, proceed in "edit mode"
+  $edit = is_array($product);
 
   // most of the form is in plain HTML with some
   // optional PHP bits throughout
 ?>
   <form method='post'
-        action="<?php echo $edit?'edit_book.php':'insert_book.php';?>">
+        action="<?php echo $edit?'edit_product.php':'insert_product.php';?>">
   <table border=0>
   <tr>
     <td>ISBN:</td>
     <td><input type='text' name='isbn' 
-         value="<?php echo $edit?$book['isbn']:''; ?>"></td>
+         value="<?php echo $edit?$product['isbn']:''; ?>"></td>
   </tr>
   <tr>
-    <td>Book Title:</td>
+    <td>product Title:</td>
     <td><input type='text' name='title' 
-         value="<?php echo $edit?$book['title']:''; ?>"></td>
+         value="<?php echo $edit?$product['title']:''; ?>"></td>
   </tr>
   <tr>
-    <td>Book Author:</td>
+    <td>product Author:</td>
     <td><input type='text' name='author' 
-         value="<?php echo $edit?$book['author']:''; ?>"></td>
+         value="<?php echo $edit?$product['author']:''; ?>"></td>
    </tr>
    <tr>
       <td>Category:</td>
-      <td><select name='catid'>
+      <td><select name='cat_id'>
       <?php
           // list of possible categories comes from database
           $cat_array=get_categories();
           foreach ($cat_array as $thiscat)
           {
                echo '<option value="';
-               echo $thiscat['catid'];
+               echo $thiscat['cat_id'];
                echo '"';
-               // if existing book, put in current catgory
-               if ($edit && $thiscat['catid'] == $book['catid'])
+               // if existing product, put in current catgory
+               if ($edit && $thiscat['cat_id'] == $product['cat_id'])
                    echo ' selected';
                echo '>'; 
                echo $thiscat['catname'];
@@ -177,36 +177,36 @@ function display_book_form($book = '')
    <tr>
     <td>Price:</td>
     <td><input type='text' name='price' 
-               value="<?php echo $edit?$book['price']:''; ?>"></td>
+               value="<?php echo $edit?$product['price']:''; ?>"></td>
    </tr>
    <tr>
      <td>Description:</td>
      <td><textarea rows=3 cols=50 
           name='description'>
-          <?php echo $edit?$book['description']:''; ?>
+          <?php echo $edit?$product['description']:''; ?>
           </textarea></td>
     </tr>
     <tr>
       <td <?php if (!$edit) echo 'colspan=2'; ?> align='center'>
          <?php 
             if ($edit)
-             // we need the old isbn to find book in database
+             // we need the old isbn to find product in database
              // if the isbn is being updated
              echo '<input type="hidden" name="oldisbn" 
-                    value="'.$book['isbn'].'">';
+                    value="'.$product['isbn'].'">';
          ?>
         <input type='submit'
-               value="<?php echo $edit?'Update':'Add'; ?> Book">
+               value="<?php echo $edit?'Update':'Add'; ?> product">
         </form></td>
         <?php 
            if ($edit)
            {  
              echo '<td>';
-             echo '<form method="post" action="delete_book.php">';
+             echo '<form method="post" action="delete_product.php">';
              echo '<input type="hidden" name="isbn" 
-                    value="'.$book['isbn'].'">';
+                    value="'.$product['isbn'].'">';
              echo '<input type="submit" 
-                    value="Delete book">';
+                    value="Delete product">';
              echo '</form></td>';
             }
           ?>
@@ -266,12 +266,12 @@ function insert_category($catname)
      return true;
 }
 
-function insert_product($id, $name, $catid,$vendor, $price, $quantity, $description)
-// insert a new book into the database 
+function insert_product($id, $name, $cat_id,$vendor, $price, $quantity, $description)
+// insert a new product into the database 
 {
    $conn = db_connect();
 
-   // check book does not already exist
+   // check product does not already exist
    $query = "select *
              from products 
              where id='$id'";
@@ -280,9 +280,9 @@ function insert_product($id, $name, $catid,$vendor, $price, $quantity, $descript
    if (!$result || $result->num_rows!=0)
      return false;
  
-   // insert new book
+   // insert new product
    $query = "insert into products values
-            ('$id', '$name', '$catid','$vendor', $price,'$quantity','$description')";
+            ('$id', '$name', '$cat_id','$vendor', $price,'$quantity','$description')";
   
    $result = $conn->query($query);
    if (!$result)
@@ -291,14 +291,14 @@ function insert_product($id, $name, $catid,$vendor, $price, $quantity, $descript
      return true;
 }
 
-function update_category($catid, $catname)
-// change the name of category with catid in the database
+function update_category($cat_id, $catname)
+// change the name of category with cat_id in the database
 {
    $conn = db_connect();
 
    $query = "update categories
              set catname='$catname'
-             where catid='$catid'";
+             where cat_id='$cat_id'";
    $result = @$conn->query($query);
    if (!$result)
      return false;
@@ -309,7 +309,7 @@ function update_category($catid, $catname)
 
 function update_product($id,$name, $cat_id, $vendor, $price, 
                      $quantity, $description)
-// change details of book stored under $oldisbn in
+// change details of product stored under $oldisbn in
 // the database to new details in arguments
 {
    $conn = db_connect();
@@ -331,24 +331,24 @@ function update_product($id,$name, $cat_id, $vendor, $price,
 }
 
 
-function delete_category($catid)
-// Remove the category identified by catid from the db
-// If there are books in the category, it will not
+function delete_category($cat_id)
+// Remove the category identified by cat_id from the db
+// If there are products in the category, it will not
 // be removed and the function will return false.
 {
    $conn = db_connect();
    
-   // check if there are any books in category 
+   // check if there are any products in category 
    // to avoid deletion anomalies   
    $query = "select *
              from productss
-             where cat_id='$catid'";
+             where cat_id='$cat_id'";
    $result = @$conn->query($query);
    if (!$result || @$result->num_rows>0)
      return false;
 
    $query = "delete from categories 
-             where catid='$catid'";
+             where cat_id='$cat_id'";
    $result = @$conn->query($query);
    if (!$result)
      return false;
@@ -358,11 +358,11 @@ function delete_category($catid)
 
 
 function delete_product($id)
-// Deletes the book identified by $isbn from the database.
+// Deletes the product identified by $isbn from the database.
 {
    $conn = db_connect();
 
-   $query = "delete from books
+   $query = "delete from products
              where id='$id'";
    $result = @$conn->query($query);
    if (!$result)

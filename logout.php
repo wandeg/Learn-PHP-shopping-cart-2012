@@ -1,7 +1,7 @@
 <?php
 
 // include function files for this application
-require_once('book_sc_fns.php'); 
+require_once('product_sc_fns.php'); 
 session_start();
 
 if (isset($_SESSION['admin_user'])){

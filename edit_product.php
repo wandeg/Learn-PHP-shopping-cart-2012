@@ -1,7 +1,7 @@
 <?php
 
 // include function files for this application
-require_once('book_sc_fns.php'); 
+require_once('product_sc_fns.php'); 
 session_start();
 
 do_html_header('Updating Product');
@@ -9,8 +9,8 @@ if (check_admin_user())
 { 
   if (filled_out($_POST)) 
   {
-    $id = $_POST['id'];
-    $name = $_POST['name'];
+    $id = $_POST['pid'];
+    $name = $_POST['title'];
     $cat_id = $_POST['cat_id'];
     $vendor = $_POST['vendor'];
     $price = $_POST['price'];

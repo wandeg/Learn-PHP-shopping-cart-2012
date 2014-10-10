@@ -1,7 +1,7 @@
 <?php
 
 // include function files for this application
-require_once('book_sc_fns.php'); 
+require_once('product_sc_fns.php'); 
 session_start();
 
 do_html_header('Edit category');
@@ -9,8 +9,8 @@ if (check_admin_user())
 {
   if ($catname = get_category_name($_GET['cat_id']))
   {
-    $catid = $_GET['cat_id'];
-    $cat = compact('catname', 'catid');
+    $cat_id = $_GET['cat_id'];
+    $cat = compact('catname', 'cat_id');
     display_category_form($cat);
   }
   else

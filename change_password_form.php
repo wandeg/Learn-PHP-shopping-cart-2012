@@ -1,5 +1,5 @@
 <?php
- require_once("book_sc_fns.php");
+ require_once("product_sc_fns.php");
  session_start();
  do_html_header("Change password");
  check_valid_user();
