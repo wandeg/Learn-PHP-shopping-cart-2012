@@ -55,7 +55,7 @@
     if($details['cat_id'])    
       $target = 'show_cat.php?cat_id='.$details['cat_id']; 
   }
-  display_button($target, 'continue-shopping', 'Continue Shopping');  
+  echo'<a class="btn btn-default btn-lg glyphicon glyphicon-shopping-cart" href="'.$target.'" role="button">Continue Shopping</a>';  
 
   // use this if SSL is set up
   // $path = $_SERVER['PHP_SELF'];
@@ -65,7 +65,7 @@
   //                  'go-to-checkout', 'Go To Checkout');  
 
   // if no SSL use below code
-  display_button('checkout.php', 'go-to-checkout', 'Go To Checkout');  
+  echo'<a class="btn btn-default btn-lg glyphicon glyphicon-shopping-cart" href="checkout.php" role="button">Checkout</a>';
 
   
   do_html_footer();

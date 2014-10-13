@@ -15,7 +15,7 @@
   else
     echo '<p>There are no items in your cart</p>';
  
-  display_button('show_cart.php', 'continue-shopping', 'Continue Shopping');  
+  echo'<a class="btn btn-default btn-lg glyphicon glyphicon-shopping-cart" href="show_cart.php" role="button">Continue Shopping</a>';
 
   do_html_footer();
 ?>

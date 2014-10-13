@@ -7,13 +7,17 @@
   $name = get_category_name($cat_id);
  
   do_html_header($name);
+  
+  if(isset($_SESSION['valid-user'])){
+    display_cart_top();
+  }
 
   // get the product info out from db
   $product_array = get_products($cat_id);
 
   display_products($product_array);
  
-  display_button('shop.php', 'continue-shopping', 'Continue Shopping');
+  echo'<a class="btn btn-default btn-lg glyphicon glyphicon-shopping-cart" href="shop.php" role="button">Continue Shopping</a>';
   // if logged in as admin, show add, delete product links
   if(isset($_SESSION['admin_user']))
   {

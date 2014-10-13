@@ -13,47 +13,58 @@ function do_html_header($title = '')
     <title><?php echo $title; ?></title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.js"></script>
   </head>
   <body>
-  <ul class="nav navbar-nav">  
+  <ul class="nav nav-tabs">  
   <li><a class="navbar-brand" href = 'index.php'>Copy Cat Limited</a></li>
   <li><?php do_html_url('register_form.php','Register') ?></li>
   <li><?php do_html_url('login.php','Login') ?></li>
   <li><?php do_html_url('shop.php','Shop') ?></li>
-  </ul>  
-  <table class="table table-bordered table-hover" width='100%' border=0 cellspacing = 0 bgcolor='#cccccc'>
-  <tr>
-  <td rowspan = 2>
-  <a href = 'index.php'><img src='images/product-O-Rama.gif' alt='productorama' border=0
-       align='left' valign='bottom' height = 55 width = 325></a>
-  </td>
-  <td align = 'right' valign = 'bottom'>
-  <?php if(isset($_SESSION['admin_user']))
-       echo '&nbsp;';
-     else
-       echo 'Total Items = '.$_SESSION['items']; 
-  ?>
-  </td>
-  <td align = 'right' rowspan = 2 width = 135>
-  <?php if(isset($_SESSION['admin_user']))
-       display_button('logout.php', 'log-out', 'Log Out');
-     else
-       display_button('show_cart.php', 'view-cart', 'View Your Shopping Cart');
-  ?>
-  </tr>
-  <tr>
-  <td align = right valign = top>
-  <?php if(isset($_SESSION['admin_user']))
-       echo '&nbsp;';
-     else
-       echo 'Total Price = $'.number_format($_SESSION['total_price'],2); 
-  ?>
-  </td>
-  </tr>
-  </table>
+  <?php $cat_array = get_categories();
+    display_category_dropdown($cat_array); ?>
+  <li><?php do_html_url('about.php','About us') ?></li>
+  <li><?php do_html_url('contact.php','Contact') ?></li>
+  </ul>
+    
+  
 <?php
   
 }
+
+function display_cart_top(){
+  ?>
+  <div class="table-responsive">
+    <table class="table table-condensed table-hover">
+  <tr>
+  <td>
+  <a href = 'index.php'><img src=''></a>
+  </td>
+  <td>
+  <?php if(isset($_SESSION['admin_user']))
+       echo '&nbsp;';
+     else
+       echo 'Total Items = '.$_SESSION['items'];
+       echo 'Total Price = $'.number_format($_SESSION['total_price'],2); 
+  ?>
+  </td>
+  <td>
+  <?php if(isset($_SESSION['admin_user']))
+       display_button('logout.php', 'log-out', 'Log Out');
+     else
+        echo'<a class="btn btn-default btn-lg glyphicon glyphicon-shopping-cart" href="show_cart.php" role="button">Go to Cart</a>';
+       // display_button('show_cart.php', 'view-cart', 'View Your Shopping Cart');
+  ?>
+  </tr>
+  </table>
+  </div>
+  
+  <?php
+}
+
 
 function do_html_footer()
 {
@@ -98,6 +109,28 @@ function display_categories($cat_array)
   }    
   echo '</ul>';
   echo '<hr />';
+}
+
+
+function display_category_dropdown($cat_array){
+  echo '<li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+      Products <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu" role="menu">';
+  if(is_array($cat_array)){
+    foreach ($cat_array as $row)
+    {
+      $url = 'show_cat.php?cat_id='.($row['cat_id']);
+      $title = $row['catname']; 
+      echo '<li role="presentation"><a role="menuitem" tabindex="-1" href="'.$url.'">'.$title.'</a></li>'; 
+      
+    }
+  }
+  
+  echo "</ul>
+  </div>";  
+
 }
 
 function display_products($product_array)
@@ -448,6 +481,41 @@ function display_admin_menu()
 
 <?php
 
+}
+function display_about_us()
+{
+?>
+<br />
+<div id="about_us">
+
+</div>
+
+<?php
+
+}
+
+function display_contact_us()
+{
+?>
+<br />
+<div id="contact_us">
+
+</div>
+
+<?php
+
+}
+
+function display_twitter_feed()
+{
+  
+?>
+<div id="twitter_feed">
+  <a class="twitter-timeline" data-tweet-limit="2" height="200" width="300" href="https://twitter.com/wa_ndeg" data-widget-id="520912566613061633">Tweets by @wa_ndeg</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+</div>
+ <?php
 }
 
 function display_button($target, $image, $alt)

@@ -32,6 +32,9 @@ if ($username && $passwd)
 do_html_header('Home');
 check_valid_user();
 
+if(isset($_SESSION['valid-user'])){
+    display_cart_top();
+}
 
 do_html_footer();
 ?>

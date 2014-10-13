@@ -6,6 +6,10 @@
 
   do_html_header("Checkout");
   // create short variable names
+  if(isset($_SESSION['valid-user'])){
+    display_cart_top();
+  }
+  
   $name = $_POST['name'];
   $address = $_POST['address'];
   $city = $_POST['city'];
@@ -26,18 +30,18 @@
       //get credit card details
       display_card_form($name);
 
-      display_button('show_cart.php', 'continue-shopping', 'Continue Shopping');  
+      echo'<a class="btn btn-default btn-lg glyphicon glyphicon-shopping-cart" href="show_cart.php" role="button">Continue Shopping</a>';  
     }
     else
     {
       echo 'Could not store data, please try again.';
-      display_button('checkout.php', 'back', 'Back');
+      echo'<a class="btn btn-default btn-lg glyphicon glyphicon-arrow-left" href="checkout.php" role="button">Checkout</a>';
     }
   }
   else
   {
     echo 'You did not fill in all the fields, please try again.<hr />';
-    display_button('checkout.php', 'back', 'Back');
+    echo'<a class="btn btn-default btn-lg glyphicon glyphicon-arrow-left" href="checkout.php" role="button">Checkout</a>';
   } 
  
   do_html_footer();

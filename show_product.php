@@ -8,6 +8,9 @@
   // get this product out of database
   $product = get_product_details($id);
   do_html_header($product['name']);
+  if(isset($_SESSION['valid-user'])){
+    display_cart_top();
+  }
   display_product_details($product);
 
   // set url for "continue button"
@@ -27,7 +30,7 @@
   {
     display_button("show_cart.php?new=$id", 'add-to-cart', 'Add '
                    .$product['name'].' To My Shopping Cart'); 
-    display_button($target, 'continue-shopping', 'Continue Shopping');
+    echo'<a class="btn btn-default btn-lg glyphicon glyphicon-shopping-cart" href="'.$target.'" role="button">Continue Shopping</a>';
   }
   
   do_html_footer();
