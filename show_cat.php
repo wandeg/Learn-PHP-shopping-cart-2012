@@ -21,9 +21,10 @@
   // if logged in as admin, show add, delete product links
   if(isset($_SESSION['admin_user']))
   {
-    display_button('admin.php', 'admin-menu', 'Admin Menu');
-    display_button("edit_category_form.php?cat_id=$cat_id", 
-     'edit-category', 'Edit Category');
+    echo'<a class="btn btn-default btn-lg glyphicon glyphicon-user" href="admin.php" role="button">Admin Menu</a>';
+    echo'<a class="btn btn-default btn-lg glyphicon glyphicon-user" href="edit_category_form.php?cat_id=$cat_id" role="button">Edit Category</a>';
+    // display_button("edit_category_form.php?cat_id=$cat_id",'edit-category', 'Edit Category');
+
   }
   else
    

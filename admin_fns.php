@@ -61,13 +61,13 @@ function insert_or_edit_product($product = '')
 ?>
   <form role="form" method='post'action="<?php echo $edit?'edit_product.php':'insert_product.php';?>">
     <label for="pid">ID</label>
-    <input type='text' name="pid" value="<?php echo $edit?$product["id"]:''; ?>" id="pid">
+    <input type='text' name="pid" class="form-control" value="<?php echo $edit?$product["id"]:''; ?>" id="pid">
     <label for="title">Name </label>
-    <input type='text' name="title" id="title" value="<?php echo $edit?$product["name"]:''; ?>">
+    <input type='text' name="title" class="form-control" id="title" value="<?php echo $edit?$product["name"]:''; ?>">
     <label for="vendor">Vendor</label>
-    <input type='text' name='vendor' id="vendor" value="<?php echo $edit?$product['vendor']:''; ?>">
+    <input type='text' name='vendor' class="form-control" id="vendor" value="<?php echo $edit?$product['vendor']:''; ?>">
     <label for="cat_id">Category</label>
-    <select name='cat_id' id="cat_id">
+    <select name='cat_id' id="cat_id" class="form-control">
       <?php
         // list of possible categories comes from database
         $cat_array=get_categories();
@@ -86,9 +86,9 @@ function insert_or_edit_product($product = '')
         ?>
       </select>
       <label for="price">Price</label>
-      <input type='text' name='price' id="price" value="<?php echo $edit?$product['price']:''; ?>">
+      <input type='text' class="form-control" name='price' id="price" value="<?php echo $edit?$product['price']:''; ?>">
       <label for="desc">Description</label>
-      <textarea rows=3 cols=50 name='description' id="desc">
+      <textarea rows=3 cols=50 name='description' id="desc" class="form-control">
       <?php echo $edit?$product['description']:''; ?>
       </textarea>
       <?php 
@@ -98,7 +98,7 @@ function insert_or_edit_product($product = '')
         echo '<input type="hidden" name="oldisbn" 
         value="'.$product['isbn'].'">';
       ?>
-      <input type='submit' value="<?php echo $edit?'Update':'Add'; ?> Product">
+      <input type='submit' class="form-control" value="<?php echo $edit?'Update':'Add'; ?> Product">
       </form>
       <?php 
       if ($edit)
@@ -117,105 +117,6 @@ function insert_or_edit_product($product = '')
 <?php
 }
 
-function display_product_form($product = '')
-// This displays the product form.
-// It is very similar to the category form.
-// This form can be used for inserting or editing products.
-// To insert, don't pass any parameters.  This will set $edit
-// to false, and the form will go to insert_product.php.
-// To update, pass an array containing a product.  The
-// form will be displayed with the old data and point to update_product.php.
-// It will also add a "Delete product" button.
-{
-  
-  // if passed an existing product, proceed in "edit mode"
-  $edit = is_array($product);
-
-  // most of the form is in plain HTML with some
-  // optional PHP bits throughout
-?>
-  <form method='post'
-        action="<?php echo $edit?'edit_product.php':'insert_product.php';?>">
-  <table border=0>
-  <tr>
-    <td>ISBN:</td>
-    <td><input type='text' name='isbn' 
-         value="<?php echo $edit?$product['isbn']:''; ?>"></td>
-  </tr>
-  <tr>
-    <td>product Title:</td>
-    <td><input type='text' name='title' 
-         value="<?php echo $edit?$product['title']:''; ?>"></td>
-  </tr>
-  <tr>
-    <td>product Author:</td>
-    <td><input type='text' name='author' 
-         value="<?php echo $edit?$product['author']:''; ?>"></td>
-   </tr>
-   <tr>
-      <td>Category:</td>
-      <td><select name='cat_id'>
-      <?php
-          // list of possible categories comes from database
-          $cat_array=get_categories();
-          foreach ($cat_array as $thiscat)
-          {
-               echo '<option value="';
-               echo $thiscat['cat_id'];
-               echo '"';
-               // if existing product, put in current catgory
-               if ($edit && $thiscat['cat_id'] == $product['cat_id'])
-                   echo ' selected';
-               echo '>'; 
-               echo $thiscat['catname'];
-               echo "\n"; 
-          }
-          ?>
-          </select>
-        </td>
-   </tr>
-   <tr>
-    <td>Price:</td>
-    <td><input type='text' name='price' 
-               value="<?php echo $edit?$product['price']:''; ?>"></td>
-   </tr>
-   <tr>
-     <td>Description:</td>
-     <td><textarea rows=3 cols=50 
-          name='description'>
-          <?php echo $edit?$product['description']:''; ?>
-          </textarea></td>
-    </tr>
-    <tr>
-      <td <?php if (!$edit) echo 'colspan=2'; ?> align='center'>
-         <?php 
-            if ($edit)
-             // we need the old isbn to find product in database
-             // if the isbn is being updated
-             echo '<input type="hidden" name="oldisbn" 
-                    value="'.$product['isbn'].'">';
-         ?>
-        <input type='submit'
-               value="<?php echo $edit?'Update':'Add'; ?> product">
-        </form></td>
-        <?php 
-           if ($edit)
-           {  
-             echo '<td>';
-             echo '<form method="post" action="delete_product.php">';
-             echo '<input type="hidden" name="isbn" 
-                    value="'.$product['isbn'].'">';
-             echo '<input type="submit" 
-                    value="Delete product">';
-             echo '</form></td>';
-            }
-          ?>
-         </td>
-      </tr>
-  </table>
-  </form>
-<?php
-}
 
 function display_password_form()
 {

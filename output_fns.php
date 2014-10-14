@@ -52,8 +52,8 @@ function display_cart_top(){
   ?>
   </td>
   <td>
-  <?php if(isset($_SESSION['admin_user']))
-       display_button('logout.php', 'log-out', 'Log Out');
+  <?php if(isset($_SESSION['admin_user']) || isset($_SESSION['valid_user']))
+       echo'<a class="btn btn-default btn-lg glyphicon glyphicon-off" href="logout.php" role="button">Log Out</a>';
      else
         echo'<a class="btn btn-default btn-lg glyphicon glyphicon-shopping-cart" href="show_cart.php" role="button">Go to Cart</a>';
        // display_button('show_cart.php', 'view-cart', 'View Your Shopping Cart');
@@ -383,8 +383,7 @@ function display_cart($cart, $change = true, $images = 1)
             <td colspan = '. (2+$images) .'>&nbsp;</td>
             <td align = "center">
               <input type = "hidden" name = "save" value = true>  
-              <input type = "image" src = "images/save-changes.gif" 
-                     border = 0 alt = "Save Changes">
+              <a class="btn btn-default btn-lg glyphicon glyphicon-save" href="#" role="button">Save Changes</a>
             </td>
             <td>&nbsp;</td>
         </tr>';
