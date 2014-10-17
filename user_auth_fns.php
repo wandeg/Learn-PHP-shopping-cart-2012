@@ -24,7 +24,7 @@ function register($username, $email, $passwd,$phone,$level,$address,$city,$state
 
   // if ok, put in db
   $nowtime = time();
-  echo '$nowtime','$username', sha1('$password'), '$email','$phone','$level';
+  //echo '$nowtime','$username', sha1('$password'), '$email','$phone','$level';
   $result = $conn->query("insert into user values 
                          ('$nowtime','$username', sha1('$password'), '$email','$phone','$level','$address','$city','$state','$zip','$country')");
   if (!$result)
@@ -48,8 +48,13 @@ function login_user($username, $password)
   if (!$result)
      throw new Exception('Could not log you in.');
   
-  if ($result->num_rows>0)
+  if ($result->num_rows>0){
+    $user = $result->fetch_object();
+    $userlevel = $user->level;
+    echo($userlevel);
      return true;
+  }
+    
   else 
      throw new Exception('Could not log you in.');
 }

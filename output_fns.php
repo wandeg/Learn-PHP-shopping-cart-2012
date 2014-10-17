@@ -394,31 +394,75 @@ function display_cart($cart, $change = true, $images = 1)
 function display_registration_form()
 {
 ?>
- <form method='post' action='register_new.php'>
- <table class="table table-bordered table-hover" bgcolor='#cccccc'>
-   <tr>
-     <td>Email address:</td>
-     <td><input type='text' name='email' size=30 maxlength=100></td></tr>
-   <tr>
-     <td>Preferred username <br />(max 16 chars):</td>
-     <td valign='top'><input type='text' name='username'
-                     size=16 maxlength=16></td></tr>
-   <tr>
-     <td>Password <br />(between 6 and 16 chars):</td>
-     <td valign='top'><input type='password' name='passwd'
-                     size=16 maxlength=16></td></tr>
-   <tr>
-     <td>Confirm password:</td>
-     <td><input type='password' name='passwd2' size=16 maxlength=16></td></tr>
-   <tr>
-   <tr>
-     <td>Phone Number:</td>
-     <td><input type='text' name='phone' size=16 maxlength=16></td></tr>
-   <tr>
-     <td colspan=2 align='center'>
-     <input type="hidden" name="level" value="2">
-     <input type='submit' value='Register'></td></tr>
- </table></form>
+<form class="form-horizontal" role="form" method="post" action="register_new.php">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="username" class="col-sm-2 control-label">Preferred Username</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="passwd" class="col-sm-2 control-label">Password <br />(between 6 and 16 chars)</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="passwd" name="passwd" placeholder="Password">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="passwd2" class="col-sm-2 control-label">Repeat Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="passwd2" name="passwd2" placeholder="Password">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="phone" class="col-sm-2 control-label">Phone</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="phone" name="phone" placeholder="phone">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="address" class="col-sm-2 control-label">Address</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="address" name="address" placeholder="address">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="city" class="col-sm-2 control-label">City</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="city" name="city" placeholder="city">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="country" class="col-sm-2 control-label">Country</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="country" name="country" placeholder="country">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="state" class="col-sm-2 control-label">State</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="state" name="state" placeholder="state">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="zip" class="col-sm-2 control-label">Zip</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="zip" name="zip" placeholder="zip">
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Register</button>
+    </div>
+  </div>
+</form>
+ 
 <?php 
 
 }
@@ -475,6 +519,7 @@ function display_admin_menu()
 <a href="index.php">Go to main site</a><br />
 <a href="insert_category_form.php">Add a new category</a><br />
 <a href="insert_product_form.php">Add a new product</a><br />
+<a href="admin_insert_user_form.php">Add a new user</a><br />
 <a href="change_password_form.php">Change admin password</a><br />
 </div>
 
