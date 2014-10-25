@@ -15,7 +15,7 @@ if ($username && $passwd)
   {
     login_user($username, $passwd);
     // if they are in the database register the user id
-    $_SESSION['valid_user'] = $username;
+    //$_SESSION['valid_user'] = $username;
   }
   catch(Exception $e)
   {

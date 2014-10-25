@@ -59,7 +59,7 @@ function insert_or_edit_product($product = '')
   // most of the form is in plain HTML with some
   // optional PHP bits throughout
 ?>
-  <form role="form" method='post'action="<?php echo $edit?'edit_product.php':'insert_product.php';?>">
+  <form role="form" method='post' enctype="multipart/form-data" action="<?php echo $edit?'edit_product.php':'insert_product.php';?>">
     <label for="pid">ID</label>
     <input type='text' name="pid" class="form-control" value="<?php echo $edit?$product["id"]:''; ?>" id="pid">
     <label for="title">Name </label>
@@ -87,6 +87,8 @@ function insert_or_edit_product($product = '')
       </select>
       <label for="price">Price</label>
       <input type='text' class="form-control" name='price' id="price" value="<?php echo $edit?$product['price']:''; ?>">
+      <label for="img_fname">Product Image</label>
+      Please choose a file: <input type="file" name="img_fname"><br>
       <label for="desc">Description</label>
       <textarea rows=3 cols=50 name='description' id="desc" class="form-control">
       <?php echo $edit?$product['description']:''; ?>
@@ -211,7 +213,7 @@ function admin_insert_user($username,$email,$level)
    // insert new category 
    $nowtime=time();
    $query = "insert into user values 
-                         ('$nowtime','$username', NULL, '$email',NULL,'$level',NULL,NULL,NULL,NULL,NULL)"); 
+                         ('$nowtime','$username', NULL, '$email',NULL,'$level',NULL,NULL,NULL,NULL,NULL)"; 
    $result = $conn->query($query);
    if (!$result)
      return false;
@@ -220,7 +222,7 @@ function admin_insert_user($username,$email,$level)
 }
 
 
-function insert_product($id, $name, $cat_id,$vendor, $price, $quantity, $description)
+function insert_product($id, $name, $cat_id,$vendor, $price, $quantity,$img_fname, $description)
 // insert a new product into the database 
 {
    $conn = db_connect();
@@ -236,7 +238,7 @@ function insert_product($id, $name, $cat_id,$vendor, $price, $quantity, $descrip
  
    // insert new product
    $query = "insert into products values
-            ('$id', '$name', '$cat_id','$vendor', $price,'$quantity','$description')";
+            ('$id', '$name', '$cat_id','$vendor', $price,'$quantity','$img_fname','$description')";
   
    $result = $conn->query($query);
    if (!$result)
@@ -326,80 +328,3 @@ function delete_product($id)
 }
 
 ?>
-
-<?php
-}
-function user_edit($user = '')
-// This displays the user form.
-// It is very similar to the category form.
-// This form can be used for inserting or editing users.
-// To insert, don't pass any parameters.  This will set $edit
-// to false, and the form will go to insert_user.php.
-// To update, pass an array containing a user.  The
-// form will be displayed with the old data and point to update_user.php.
-// It will also add a "Delete user" button.
-{
-  
-  // if passed an existing user, proceed in "edit mode"
-  $edit = is_array($user);
-
-  // most of the form is in plain HTML with some
-  // optional PHP bits throughout
-?>
-  <form role="form" method='post'action="<?php echo $edit?'edit_user.php':'insert_user.php';?>">
-    <label for="pid">ID</label>
-    <input type='text' name="pid" class="form-control" value="<?php echo $edit?$user["id"]:''; ?>" id="pid">
-    <label for="title">Name </label>
-    <input type='text' name="title" class="form-control" id="title" value="<?php echo $edit?$user["name"]:''; ?>">
-    <label for="vendor">Vendor</label>
-    <input type='text' name='vendor' class="form-control" id="vendor" value="<?php echo $edit?$user['vendor']:''; ?>">
-    <label for="cat_id">Category</label>
-    <select name='cat_id' id="cat_id" class="form-control">
-      <?php
-        // list of possible categories comes from database
-        $cat_array=get_categories();
-        foreach ($cat_array as $thiscat)
-        {
-             echo '<option value="';
-             echo $thiscat['cat_id'];
-             echo '"';
-             // if existing user, put in current catgory
-             if ($edit && $thiscat['cat_id'] == $user['cat_id'])
-                 echo ' selected';
-             echo '>'; 
-             echo $thiscat['catname'];
-             echo "\n"; 
-        }
-        ?>
-      </select>
-      <label for="price">Price</label>
-      <input type='text' class="form-control" name='price' id="price" value="<?php echo $edit?$user['price']:''; ?>">
-      <label for="desc">Description</label>
-      <textarea rows=3 cols=50 name='description' id="desc" class="form-control">
-      <?php echo $edit?$user['description']:''; ?>
-      </textarea>
-      <?php 
-        if ($edit)
-        // we need the old isbn to find user in database
-        // if the isbn is being updated
-        echo '<input type="hidden" name="oldisbn" 
-        value="'.$user['isbn'].'">';
-      ?>
-      <input type='submit' class="form-control" value="<?php echo $edit?'Update':'Add'; ?> user">
-      </form>
-      <?php 
-      if ($edit)
-      {  
-        echo '<form method="post" action="delete_user.php">';
-        echo '<input type="hidden" name="pid" 
-        value="'.$user['pid'].'">';
-        echo '<button type="submit">Delete user</butto>';
-        echo '</form>';
-      }
-      ?>
-
-      </form>
-
-   
-<?php
-}

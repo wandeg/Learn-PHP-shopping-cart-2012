@@ -22,7 +22,7 @@
   if(isset($_SESSION['admin_user']))
   {
     echo'<a class="btn btn-default btn-lg glyphicon glyphicon-user" href="admin.php" role="button">Admin Menu</a>';
-    echo'<a class="btn btn-default btn-lg glyphicon glyphicon-user" href="edit_category_form.php?cat_id=$cat_id" role="button">Edit Category</a>';
+    echo'<a class="btn btn-default btn-lg glyphicon glyphicon-user" href="edit_category_form.php?cat_id='.$cat_id.'" role="button">Edit Category</a>';
     // display_button("edit_category_form.php?cat_id=$cat_id",'edit-category', 'Edit Category');
 
   }

@@ -1,6 +1,7 @@
 <?php
 
 require_once('db_fns.php');
+session_start();
 
 function register($username, $email, $passwd,$phone,$level,$address,$city,$state,$zip,$country)
 // register new person with db
@@ -51,11 +52,19 @@ function login_user($username, $password)
   if ($result->num_rows>0){
     $user = $result->fetch_object();
     $userlevel = $user->level;
-    echo($userlevel);
-     return true;
+    
+    if ($userlevel=='2'){
+     $_SESSION['valid_user']=$user->id;
+    }
+    else if($userlevel=='4'){
+      $_SESSION['admin_user']=$user->id;
+    }
+    return true;
+
   }
     
   else 
+
      throw new Exception('Could not log you in.');
 }
 
@@ -91,8 +100,11 @@ function check_valid_user()
       echo 'Click <a href = "shop.php">'.here.'</a> to start shopping';
       echo '<br />';
   }
-  else
-  {
+  else if (isset($_SESSION['admin_user'])) {
+    # code...
+    display_admin_menu();
+  }
+  else{
      // they are not logged in 
      do_html_heading('Problem:');
      echo 'You are not logged in.<br />';

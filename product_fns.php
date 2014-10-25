@@ -63,7 +63,6 @@ function get_product_details($id)
   // query database for all details for a particular product
   if (!$id || $id=='')
      return false;
-
    $conn = db_connect();
    $query = "select * from products where id='$id'";
    $result = @$conn->query($query);

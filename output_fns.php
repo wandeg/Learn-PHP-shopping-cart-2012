@@ -150,9 +150,9 @@ function display_products($product_array)
     {
       $url = 'show_product.php?id='.($row['id']);
       echo '<tr><td>';
-      if (@file_exists('images/'.$row['id'].'.jpg'))
+      if (@file_exists('images/'.$row['img_fname']))
       {
-        $title = '<img src=\'images/'.($row['id']).'.jpg\' border=0 />';
+        $title = '<img src="images/'.($row['img_fname']).'" border=0 />';
         do_html_url($url, $title);
       }
       else
@@ -176,11 +176,11 @@ function display_product_details($product)
   {
     echo '<table class="table table-bordered table-hover"><tr>'; 
     //display the picture if there is one 
-    if (@file_exists('images/'.($product['id']).'.jpg'))
+    if (@file_exists('images/'.$product['img_fname']))
     {
-      $size = GetImageSize('images/'.$product['id'].'.jpg');
+      $size = GetImageSize('images/'.$product['img_fname']);
       if($size[0]>0 && $size[1]>0)
-        echo '<td><img src=\'images/'.$product['id'].'.jpg\' border=0 '.$size[3].'></td>';
+        echo '<td><img src="images/'.($product['img_fname']).'" border=0 '.$size[3].'></td>';
     }
     echo '<td><ul>';
     echo '<li><b>Vendor:</b> ';
@@ -342,12 +342,12 @@ function display_cart($cart, $change = true, $images = 1)
     if($images ==true)
     {
       echo '<td align = left>';
-      if (file_exists("images/$id.jpg"))
+      if (file_exists('images/'.$product['img_fname']))
       {
-         $size = GetImageSize('images/'.$id.'.jpg');  
+         $size = GetImageSize('images/'.$product['img_fname']);  
          if($size[0]>0 && $size[1]>0)
          {
-           echo '<img src="images/'.$id.'.jpg" border=0 ';
+           echo '<img src="images/'.($product['img_fname']).'" border=0 ';
            echo 'width = '. $size[0]/3 .' height = ' .$size[1]/3 . ' />';
          }
       }

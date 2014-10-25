@@ -90,13 +90,14 @@ CREATE TABLE `products` (
   `vendor` varchar(128) default NULL,
   `price` double default NULL,
   `quantity` int(32) default NULL,
+  `img_fname` text,
   `description` text,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `products` */
 
-insert  into `products`(`id`,`name`,`cat_id`,`vendor`,`price`,`quantity`,`description`) values ('1','nkfjw',1,'kbfwk',35,0,'            nfklw2n'),('1000','deskjet',1,'hp',556,0,'            conwnlcw');
+insert  into `products`(`id`,`name`,`cat_id`,`vendor`,`price`,`quantity`,`img_fname`,`description`) values ('1','nkfjw',1,'kbfwk',35,0,NULL,'            nfklw2n'),('1000','deskjet',1,'hp',556,0,NULL,'            conwnlcw'),('266','grthe',1,'agrw',13,0,'','            fwgwgw'),('467','pou92u',1,'iyrewi',367,0,'817536eeb692bebfd7c98a38f72f3f72991b0fd4.jpg','            thatoe'),('68','ugj',1,'ogbkj',67,0,'','            tgvuj');
 
 /*Table structure for table `user` */
 
@@ -119,7 +120,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`id`,`username`,`password`,`email`,`phone`,`level`,`address`,`city`,`state`,`zip`,`country`) values (1,'user1','7c4a8d09ca3762af61e59520943dc26494f8941b','fneknfk',NULL,2,NULL,NULL,NULL,NULL,NULL),(2,'admin','d033e22ae348aeb5660fc2140aec35850c4da997','admin@shop.com','31784',4,NULL,NULL,NULL,NULL,NULL),(13441,'admin',NULL,NULL,NULL,2,NULL,NULL,NULL,NULL,NULL),(1412528138,'user12','7c4a8d09ca3762af61e59520943dc26494f8941b','k@k.ocm','123456',2,NULL,NULL,NULL,NULL,NULL);
+insert  into `user`(`id`,`username`,`password`,`email`,`phone`,`level`,`address`,`city`,`state`,`zip`,`country`) values (1,'user1','7c4a8d09ca3762af61e59520943dc26494f8941b','fneknfk',NULL,2,NULL,NULL,NULL,NULL,NULL),(2,'admin','d033e22ae348aeb5660fc2140aec35850c4da997','admin@shop.com','31784',4,NULL,NULL,NULL,NULL,NULL),(1412528138,'user12','7c4a8d09ca3762af61e59520943dc26494f8941b','k@k.ocm','123456',2,NULL,NULL,NULL,NULL,NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -23,7 +23,7 @@
   if( check_admin_user() )
   {
     // display_button("edit_product_form.php?id=$id", 'edit-item', 'Edit Item');
-    echo'<a class="btn btn-default btn-lg glyphicon glyphicon-edit" href="edit_product_form.php?id=$id" role="button">Edit Item</a>';
+    echo'<a class="btn btn-default btn-lg glyphicon glyphicon-edit" href="edit_product_form.php?id='.$id.'" role="button">Edit Item</a>';
     echo'<a class="btn btn-default btn-lg glyphicon glyphicon-user" href="admin.php" role="button">Admin Menu</a>';
     // display_button($target, 'continue', 'Continue');
     echo'<a class="btn btn-default btn-lg glyphicon glyphicon-arrow-right" href="'.$target.'" role="button">Continue </a>';
@@ -32,7 +32,7 @@
   else
   {
     // display_button("show_cart.php?new=$id", 'add-to-cart', 'Add '.$product['name'].' To My Shopping Cart'); 
-    echo'<a class="btn btn-default btn-lg glyphicon glyphicon-shopping-cart" href="show_cart.php?new=$id" role="button">Add '.$product['name'].'to My Shopping Cart</a>';
+    echo'<a class="btn btn-default btn-lg glyphicon glyphicon-shopping-cart" href="show_cart.php?new='.$id.'" role="button">Add '.$product['name'].'to My Shopping Cart</a>';
     echo'<a class="btn btn-default btn-lg glyphicon glyphicon-shopping-cart" href="'.$target.'" role="button">Continue Shopping</a>';
   }
   
